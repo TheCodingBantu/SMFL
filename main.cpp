@@ -1,36 +1,30 @@
 #include <SFML/Graphics.hpp>
+#include <time.h>
+
+using namespace sf;
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Simple Game");
+    RenderWindow window(VideoMode(800, 600), "Simple Game");
 
-    sf::Texture texture;
-    if (!texture.loadFromFile("./texture.jpg"))
-        return -1; // Error handling
+    Texture texture;
+    if (!texture.loadFromFile("./images/tiles.png"))
+        return -1;
 
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
-
-    sf::Vector2f velocity(0.1f, 0.1f); // Movement speed
+    Sprite sprite(texture);
+    sprite.setTextureRect(IntRect(0,0,18,18));
 
     while (window.isOpen()) {
-        sf::Event event;
+        Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (event.type == Event::Closed)
                 window.close();
         }
-
-        // Move the sprite
-        sprite.move(velocity);
-
-        // Clear the window
-        window.clear(sf::Color::Black);
-
-        // Draw the sprite
+        window.clear(Color::Black);
         window.draw(sprite);
-
-        // Display the contents of the window
         window.display();
     }
 
     return 0;
 }
+
+
